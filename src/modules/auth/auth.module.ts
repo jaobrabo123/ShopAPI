@@ -21,5 +21,6 @@ import authConfig from "./config/auth.config.js";
     ],
     providers: [AuthService, { provide: HashingService, useClass: BcryptService }],
     controllers: [AuthController],
+    exports: [JwtModule],
 })
 export class AuthModule {}
