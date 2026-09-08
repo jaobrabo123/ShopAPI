@@ -8,7 +8,12 @@ async function bootstrap() {
 
     app.use(helmet());
 
-    const config = new DocumentBuilder().setTitle("Shop API").setVersion("1.0").build();
+    const config = new DocumentBuilder()
+        .setTitle("Shop API")
+        .setVersion("1.0")
+        .addBearerAuth({ type: "http" }, "accessToken")
+        .addSecurityRequirements("accessToken")
+        .build();
     const documentFactory = () => SwaggerModule.createDocument(app, config);
     SwaggerModule.setup("api-docs", app, documentFactory);
 

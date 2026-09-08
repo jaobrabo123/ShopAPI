@@ -47,7 +47,11 @@ describe("AuthService", () => {
     });
 
     describe("register", () => {
-        const dto: CreateUserDto = { email: "joao@email.com", name: "joao", password: "!@123Abc" };
+        let dto: CreateUserDto;
+
+        beforeEach(() => {
+            dto = { email: "joao@email.com", name: "joao", password: "!@123Abc" };
+        });
 
         it("should create a user", async () => {
             const createdUser = userFactory({ email: dto.email, name: dto.name, passwordHash: HASH_RESULT });
@@ -102,6 +106,7 @@ describe("AuthService", () => {
             expect(hashingService.compare).toHaveBeenCalledWith(dto.password, userFound.passwordHash);
             expect(jwtService.signAsync).toHaveBeenCalledWith({
                 sub: userFound.id,
+                role: Role.USER,
             });
             expect(userMapper.toPrivateUserDto).toHaveBeenCalledWith(userFound);
             expect(result).toEqual({ user: privateDto, accessToken: JWT_SIGN_RESULT });

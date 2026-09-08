@@ -41,7 +41,7 @@ export class AuthService {
         const validPassword = await this.hashingService.compare(dto.password, user.passwordHash);
         if (!validPassword) this.throwInvalidCredentials();
 
-        const accessToken = await this.jwtService.signAsync<TokenPayloadDTO>({ sub: user.id });
+        const accessToken = await this.jwtService.signAsync<TokenPayloadDTO>({ sub: user.id, role: user.role });
 
         return {
             accessToken,
