@@ -2,11 +2,11 @@ import { Module } from "@nestjs/common";
 import { UserModule } from "../user/user.module.js";
 import { AuthService } from "./auth.service.js";
 import { HashingService } from "./hashing/hashing.service.js";
-import { BcryptService } from "./hashing/bcrypt.service.js";
 import { AuthController } from "./auth.controller.js";
 import { JwtModule } from "@nestjs/jwt";
 import { ConfigModule, ConfigType } from "@nestjs/config";
 import authConfig from "./config/auth.config.js";
+import { Argon2Service } from "./hashing/argon2.service.js";
 
 @Module({
     imports: [
@@ -19,7 +19,7 @@ import authConfig from "./config/auth.config.js";
             },
         }),
     ],
-    providers: [AuthService, { provide: HashingService, useClass: BcryptService }],
+    providers: [AuthService, { provide: HashingService, useClass: Argon2Service }],
     controllers: [AuthController],
     exports: [JwtModule],
 })

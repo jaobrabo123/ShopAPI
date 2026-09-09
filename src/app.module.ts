@@ -8,6 +8,9 @@ import { APP_GUARD, APP_PIPE } from "@nestjs/core";
 import { JwtAuthGuard } from "./modules/auth/guards/jwt-auth.guard.js";
 import { RolesGuard } from "./modules/auth/guards/roles.guard.js";
 import { minutes, seconds, ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
+import { CategoryModule } from "./modules/category/category.module.js";
+import { ProductModule } from "./modules/product/product.module.js";
+import { OrderModule } from "./modules/order/order.module.js";
 
 @Module({
     imports: [
@@ -30,6 +33,9 @@ import { minutes, seconds, ThrottlerGuard, ThrottlerModule } from "@nestjs/throt
             ],
             errorMessage: "Too Many Requests",
         }),
+        CategoryModule,
+        ProductModule,
+        OrderModule,
     ],
     providers: [
         {

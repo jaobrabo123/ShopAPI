@@ -45,6 +45,7 @@ describe("BcryptService", () => {
 
             const result = await service.compare("wrong-password", MOCK_HASH);
 
+            expect(bcrypt.compare).toHaveBeenCalledWith("wrong-password", MOCK_HASH);
             expect(result).toBe(false);
         });
     });
